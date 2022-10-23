@@ -1,0 +1,26 @@
+﻿Pour acceder a la base donnees :
+https://obiwan2.univ-brest.fr/adminbdd/
+login : zm_rabeha
+mdp : Hatimtim123
+
+URL site web :
+http://obiwan2.univ-brest.fr/licence/lic194/V1/index.php
+http://obiwan2.univ-brest.fr/licence/lic194/V2/index.php
+Derniere Version:
+http://obiwan2.univ-brest.fr/licence/lic194/V3/index.php
+
+Sessions :
+--- Gestionnaires ---
+login : gestionnaire1
+mdp : gesSIDPlay_!19
+---------------------
+login : hatim
+mdp : hatimtim123
+
+----- Redacteur -----
+------- Active ------
+login : youssef
+mdp : 12345
+----- désActive -----
+login : fabrigas_cesc
+mdp : fabri123 

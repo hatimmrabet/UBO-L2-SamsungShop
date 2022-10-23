@@ -1,0 +1,20 @@
+header {
+    order: 1;
+    background-color: rgba(255, 255, 255);
+    display: block;
+    left: 0;
+    position: relative;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+.navbar-logo {
+    padding: 2px 15px 0 15px;
+    height: auto;
+    width: 230px;
+}
+.navbar-logo img{
+    width: 100%;
+}
+

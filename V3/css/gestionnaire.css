@@ -1,0 +1,27 @@
+.pere{
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start; 
+    align-items: stretch;
+    width: 100%;
+    min-height: 555px;
+}
+.table1{
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.edit{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 23%;
+    padding: 1%;
+    margin: 1%;
+    background-color: #eef1f3;
+    background-clip: border-box;
+    border: 2px solid rgba(0,0,0,.125);
+    border-radius: .55rem;
+}
