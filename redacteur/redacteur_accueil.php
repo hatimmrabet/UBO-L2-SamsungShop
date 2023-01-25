@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-//verification du statut de l'utilisateur et du prifil s'il est connecté ou pas
+//verification du statut de l'utilisateur et du profil s'il est connecté ou pas
 if(!isset($_SESSION['pseudo']) || $_SESSION['statut']!='R') 
 {
 //Si la session n'est pas ouverte, redirection vers la page du formulaire
@@ -64,101 +64,51 @@ if ($query==false) {        // La requête a echoué
 		<div class="jumbotron border border-success" style="text-align:center;padding: 2% 4%;background-color:#f8f8f8;">
 			<h2>Bonjour : <span style="text-transform:uppercase;"><?php echo $data['pfl_nom']."  ".$data['pfl_prenom']; ?></span></h2>
 		</div>
-		<div class="row">
-			<!-- 1er division temporaire -->
-			<div class="jumbotron col border border-dark" style="width:40%;margin:1%;padding:2rem 3rem;background-color:#f8f8f8;">
-				<h3 style="margin-bottom: 6%;">VIDE</h3>
-				<form>
-					<div class="form-group row">
-						<label class="col-sm-5 col-form-label">VIDE :</label>
-						<div class="col-sm-5 ">
-							<input type="text" readonly class="form-control-plaintext"><?php echo $data['pfl_nom'] ?></input>
-						</div>
+		<!-- division informations personnelles -->
+		<div class="jumbotron col border border-dark" style="padding:2rem 3rem;background-color:#f8f8f8;">
+			<h3 style="margin-bottom: 6%;">Informations Peronnelles :</h3>
+			<form>
+			<fieldset disabled>
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label font-weight-bold">Nom :</label>
+					<div class="col-sm-7 ">
+						<input type="text" readonly style="text-transform: uppercase;" class="form-control" value="<?php echo $data['pfl_nom'] ?>" disbled></input>
 					</div>
-					<div class="form-group row">
-						<label class="col-sm-5 col-form-label">VIDE :</label>
-						<div class="col-sm-5 ">
-							<label type="text" readonly class="form-control-plaintext"><?php echo $data['pfl_prenom'] ?></label>
-						</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label font-weight-bold">Prenom :</label>
+					<div class="col-sm-7 ">
+						<input type="text" readonly style="text-transform: uppercase;" class="form-control" value="<?php echo $data['pfl_prenom'] ?>" disbled></input>
 					</div>
-					<div class="form-group row">
-						<label class="col-sm-5 col-form-label">VIDE :</label>
-						<div class="col-sm-5 ">
-							<label type="text" readonly class="form-control-plaintext">
-								<?php
-									if($data['pfl_statut']=='R'){echo 'Redacteur';}
-									else{echo 'Gestionaire';}
-								?>
-							</label>
-						</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label font-weight-bold">Statut :</label>
+					<div class="col-sm-7 ">
+						<input type="text" readonly class="form-control" value="<?php if($data['pfl_statut']=='R')
+							{echo 'Redacteur';}else{echo 'Gestionnaire';}?>" disbled>
+						</input>
 					</div>
-					<div class="form-group row">
-						<label class="col-sm-5 col-form-label">VIDE :</label>
-						<div class="col-sm-5 ">
-							<label type="text" readonly class="form-control-plaintext"><?php echo $data['cpt_pseudo'] ?></label>
-						</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label font-weight-bold">Pseudo :</label>
+					<div class="col-sm-7 ">
+						<input type="text" readonly class="form-control" value="<?php echo $data['cpt_pseudo'] ?>" disbled></input>
 					</div>
-					<div class="form-group row">
-						<label class="col-sm-5 col-form-label">VIDE :</label>
-						<div class="col-sm-5 ">
-							<label type="text" readonly class="form-control-plaintext"><?php echo $data['pfl_mail'] ?></label>
-						</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label font-weight-bold">Email :</label>
+					<div class="col-sm-7 ">
+						<input type="text" readonly class="form-control" value="<?php echo $data['pfl_mail'] ?>" disbled></input>
 					</div>
-					<div class="form-group row">
-						<label class="col-sm-5 col-form-label">VIDE :</label>
-						<div class="col-sm-5 ">
-							<label type="text" readonly class="form-control-plaintext"><?php echo $data['pfl_date'] ?></label>
-						</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label font-weight-bold">Inscrit le :</label>
+					<div class="col-sm-7 ">
+						<input type="text" readonly class="form-control" value="<?php echo $data['pfl_date'] ?>" disbled></input>
 					</div>
-				</form>
-			</div>
-
-			<!-- division informations personnelles -->
-			<div class="jumbotron col border border-dark" style="width:40%;margin:1%;padding:2rem 3rem;background-color:#f8f8f8;">
-				<h3 style="margin-bottom: 6%;">Informations Peronnelles :</h3>
-				<form>
-				<fieldset disabled>
-					<div class="form-group row">
-						<label class="col-sm-4 col-form-label font-weight-bold">Nom :</label>
-						<div class="col-sm-7 ">
-							<input type="text" readonly style="text-transform: uppercase;" class="form-control" value="<?php echo $data['pfl_nom'] ?>" disbled></input>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-sm-4 col-form-label font-weight-bold">Prenom :</label>
-						<div class="col-sm-7 ">
-							<input type="text" readonly style="text-transform: uppercase;" class="form-control" value="<?php echo $data['pfl_prenom'] ?>" disbled></input>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-sm-4 col-form-label font-weight-bold">Statut :</label>
-						<div class="col-sm-7 ">
-							<input type="text" readonly class="form-control" value="<?php if($data['pfl_statut']=='R')
-								{echo 'Redacteur';}else{echo 'Gestionaire';}?>" disbled>
-							</input>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-sm-4 col-form-label font-weight-bold">Pseudo :</label>
-						<div class="col-sm-7 ">
-							<input type="text" readonly class="form-control" value="<?php echo $data['cpt_pseudo'] ?>" disbled></input>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-sm-4 col-form-label font-weight-bold">Email :</label>
-						<div class="col-sm-7 ">
-							<input type="text" readonly class="form-control" value="<?php echo $data['pfl_mail'] ?>" disbled></input>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-sm-4 col-form-label font-weight-bold">Inscrit le :</label>
-						<div class="col-sm-7 ">
-							<input type="text" readonly class="form-control" value="<?php echo $data['pfl_date'] ?>" disbled></input>
-						</div>
-					</div>
-				</fieldset>
-				</form>
-			</div>
+				</div>
+			</fieldset>
+			</form>
 		</div>
 	</main>
 

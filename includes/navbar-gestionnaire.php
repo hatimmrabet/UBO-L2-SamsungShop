@@ -17,6 +17,15 @@
         <li class="nav-item <?php if($page==1) {echo"active";}?>">
             <a class="nav-link" href="gestionnaire_comptes.php">Gestion des Comptes</a>
         </li>
+        <li class="nav-item <?php if($page==2) {echo"active";}?>">
+            <a class="nav-link" href="gestionnaire_actualites.php">Gestion des Actualités</a>
+        </li>
+        <li class="nav-item <?php if($page==3) {echo"active";}?>">
+            <a class="nav-link" href="#">Catégories/Informations</a>
+        </li>
+        <li class="nav-item <?php if($page==4) {echo"active";}?>">
+            <a class="nav-link" href="#">URL</a>
+        </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="post" action="">
             <button class="btn btn-outline-light my-2 my-sm-0" name="logout" type="submit" style="width:150px;">Log out</button>

@@ -26,9 +26,9 @@ if (!$mysqli->set_charset("utf8")) {
 	exit();
 }
 
-$pseudo=$_SESSION['pseudo'];	//requperation de pseudo
 
-$sql="SELECT * from t_profil_pfl join t_compte_cpt using(cpt_pseudo) order by pfl_date desc";  //recuperation de tous les comptes + profiles 
+//recuperation de tous les comptes + profiles 
+$sql="SELECT * from t_profil_pfl join t_compte_cpt using(cpt_pseudo) order by pfl_date desc";  
 $query=$mysqli->query($sql);
 //echo $sql;
 
@@ -65,7 +65,7 @@ if ($query==false) {        // La requête a echoué
             <table class="table table-light table-hover table-responsive-md">
                 <thead class="thead-light">
                     <tr>
-                    <th colspan="8">
+                    <th colspan="8" style="height: 20px;">
                         <?php
                                 /*********************      1ere methode        ******************
                             $query1="SELECT count(cpt_pseudo) as Nombre from t_compte_cpt join t_profil_pfl using (cpt_pseudo)";
@@ -116,23 +116,49 @@ if ($query==false) {        // La requête a echoué
                     <td><?php echo ($data['pfl_validite']) ?></td>
                     <td><?php echo ($data['pfl_date']) ?></td>
                     </tr>
-                    <?php } ?>
+                    <?php }
+                    ?>
                 </tbody>
             </table>
         </div>
-
+                        
         <div class="edit">
-            <form  class="form-signin" method="post" action="comptes_gestionnaire.php">
+            <?php
+                //affichage des msg d'erreur
+                if(isset($_SESSION['msg'])){
+                echo('<div style="margin-bottom: 1rem;">');
+                    if($_SESSION['msg']==1){  //afficher msg success 1
+                    echo('<div class="alert alert-success" role="alert">');
+                        echo('Compte activé <br>');
+                    echo('</div>');
+                    }
+                    if($_SESSION['msg']==2 ) { //afficher msg success 2
+                        echo('<div class="alert alert-success" role="alert">');
+                            echo('Compte désactivé');
+                        echo('</div>');
+                    }
+                    if($_SESSION['msg']==3 ) { //afficher msg error 2
+                        echo('<div class="alert alert-danger" role="alert">');
+                            echo('Pseudo introuvable');
+                        echo('</div>');
+                    }
+                echo('</div>');
+                unset($_SESSION['msg']);
+                }
+            ?>
+            <form  class="form-group" method="post" action="comptes_action.php">
                 <fieldset>
-                    <label>Entrer le PSEUDO :</label>
+                <p>Selectionnez un compte désactivé pour l'activé et Vice versa</p>
+                    <label style="text-transform: uppercase;font-weight:bold;">Entrer le PSEUDO :</label>
                     <input type="texte"class="form-control" placeholder="Pseudo " name="pseudo" required autofocus>
-                    <input class="btn btn-lg btn-primary btn-block mt-3" type="submit" name="modifier2" value="Modifier">
-                    <?php if(isset($_POST['modifier2'])){echo "modifier";} ?>
+                    <input class="btn btn-lg btn-primary btn-block mt-3" type="submit" name="modifier" value="Modifier">
                 </fieldset>
             </form>
         </div>
+        
 
     </div>
 
 
 </body>
+<?php $mysqli->close(); ?>

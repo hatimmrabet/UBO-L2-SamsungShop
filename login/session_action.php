@@ -72,7 +72,6 @@ if( $_POST['pseudo'] AND $_POST['mdp'] )    //les 2 champs sont remplies
                 $problem=0;
 
                 $_SESSION['pseudo']=$pseudo;
-                $_SESSION['validite']=$data['pfl_validite'];
                 $_SESSION['statut']=$data['pfl_statut'];
 
                 $msg=1;
