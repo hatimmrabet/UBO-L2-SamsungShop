@@ -1,6 +1,0 @@
-Pour acceder a la base donnees :
-https://obiwan2.univ-brest.fr/adminbdd/
-
-URL site web :
-http://obiwan2.univ-brest.fr/licence/lic194/v1/index.php
-http://obiwan2.univ-brest.fr/licence/lic194/v2/index.php
