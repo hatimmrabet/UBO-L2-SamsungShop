@@ -14,16 +14,29 @@
         <li class="nav-item <?php if($page==0) {echo"active";}?> ">
             <a class="nav-link" href="gestionnaire_accueil.php">Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item <?php if($page==1) {echo"active";}?>">
-            <a class="nav-link" href="gestionnaire_comptes.php">Gestion des Comptes</a>
+        <li class="nav-item dropdown <?php if($page==1) {echo"active";}?>">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Gestion des Comptes </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="gestionnaire_comptes.php">Gestion des Comptes</a>
+            <a class="dropdown-item" href="gest_cpt_ajout.php">Ajout d'un compte</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown <?php if($page==3) {echo"active";}?>">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Gestion des informations </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="gest_affich_info.php">Affichage</a>
+            <a class="dropdown-item" href="gest_inf_ajout.php">Ajout d'information</a>
+            </div>
         </li>
         <li class="nav-item <?php if($page==2) {echo"active";}?>">
             <a class="nav-link" href="gestionnaire_actualites.php">Gestion des Actualités</a>
         </li>
-        <li class="nav-item <?php if($page==3) {echo"active";}?>">
-            <a class="nav-link" href="#">Catégories/Informations</a>
-        </li>
         <li class="nav-item <?php if($page==4) {echo"active";}?>">
+            <a class="nav-link" href="gest_cat.php">Catégories</a>
+        </li>
+        <li class="nav-item <?php if($page==5) {echo"active";}?>">
             <a class="nav-link" href="#">URL</a>
         </li>
         </ul>

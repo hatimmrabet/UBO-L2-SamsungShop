@@ -10,21 +10,8 @@ exit();
 }
 
 //connection a la base de donnee
-$mysqli = new mysqli('localhost','zm_rabeha','Hatimtim123','zfl2-zm_rabeha'); //ouverture de connection
-if ($mysqli->connect_errno)
-{
-	// Affichage d'un message d'erreur
-	echo "Error: Problème de connexion à la BDD \n";
-	echo "Errno: " . $mysqli->connect_errno . "\n";
-	echo "Error: " . $mysqli->connect_error . "\n";
-	// Arrêt du chargement de la page
-	exit();
-}
-// Instructions PHP à ajouter pour l'encodage utf8 du jeu de caractères
-if (!$mysqli->set_charset("utf8")) {
-	//printf("Pb de chargement du jeu de car. utf8 : %s\n", $mysqli->error);
-	exit();
-}
+require_once("../includes/BDD.php");
+
 
 
 //recuperation de tous les comptes + profiles 
@@ -89,7 +76,7 @@ if ($query==false) {        // La requête a echoué
                                 while ($row = $result->fetch_row()) {
                                 // printf ("%s \n", $row[0]);
                             ?>
-                            <p>Nombre de comptes : <?php echo ($row[0]); ?></p>
+                            Nombre de comptes : <?php echo ($row[0]); ?>
                             <?php }
                             }else{echo "error";}
                         ?>
@@ -127,6 +114,11 @@ if ($query==false) {        // La requête a echoué
                 //affichage des msg d'erreur
                 if(isset($_SESSION['msg'])){
                 echo('<div style="margin-bottom: 1rem;">');
+                if($_SESSION['msg']==0){  //afficher msg danger 0
+                    echo('<div class="alert alert-danger" role="alert">');
+                        echo('Vous ne pouvez pas changez la validité de votre Compte');
+                    echo('</div>');
+                    }
                     if($_SESSION['msg']==1){  //afficher msg success 1
                     echo('<div class="alert alert-success" role="alert">');
                         echo('Compte activé <br>');
@@ -148,10 +140,39 @@ if ($query==false) {        // La requête a echoué
             ?>
             <form  class="form-group" method="post" action="comptes_action.php">
                 <fieldset>
+                <h5>Activer/désactiver</h5><br>
                 <p>Selectionnez un compte désactivé pour l'activé et Vice versa</p>
                     <label style="text-transform: uppercase;font-weight:bold;">Entrer le PSEUDO :</label>
                     <input type="texte"class="form-control" placeholder="Pseudo " name="pseudo" required autofocus>
-                    <input class="btn btn-lg btn-primary btn-block mt-3" type="submit" name="modifier" value="Modifier">
+                    <input class="btn btn-primary btn-block mt-3" type="submit" name="modifier" value="Modifier">
+                </fieldset>
+            </form>
+            <hr>
+            <form  class="form-group" method="post" action="comptes_action.php">
+            <?php
+                //affichage des msg d'erreur
+                if(isset($_SESSION['msgDel'])){
+                echo('<div style="margin-bottom: 1rem;">');
+                    if($_SESSION['msgDel']==0){  //afficher msgDel succes 0
+                    echo('<div class="alert alert-success" role="alert">');
+                        echo('Compte Supprimé');
+                    echo('</div>');
+                    }
+                    if($_SESSION['msgDel']==1){  //afficher msgDel danger 0
+                    echo('<div class="alert alert-danger" role="alert">');
+                        echo('Ce pseudo n\'existe pas');
+                    echo('</div>');
+                    }
+                echo('</div>');
+                unset($_SESSION['msgDel']);
+                }
+            ?>
+                <fieldset>
+                <h5>Supprimer un compte</h5><br>
+                <p>Selectionnez un compte pour le supprimer :</p>
+                    <label style="text-transform: uppercase;font-weight:bold;">Entrer le PSEUDO :</label>
+                    <input type="texte"class="form-control" placeholder="Pseudo " name="pseudo" required autofocus>
+                    <input class="btn btn-danger btn-block mt-3" type="submit" name="supprimer" value="Supprimer">
                 </fieldset>
             </form>
         </div>

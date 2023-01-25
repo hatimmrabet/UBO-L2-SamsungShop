@@ -23,13 +23,13 @@
             </div>
         </li>
         <li class="nav-item <?php if($page==2) {echo"active";}?> ">
-            <a class="nav-link" href="#">Gestion des actualités <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="redacteur_actualites.php">Gestion des actualités <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item <?php if($page==3) {echo"active";}?> ">
-            <a class="nav-link" href="#">Gestion des catégories <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="red_cat.php">Gestion des catégories <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item <?php if($page==4) {echo"active";}?> ">
-            <a class="nav-link" href="#">Gestion des visuels <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="red_vis.php">Gestion des visuels <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item <?php if($page==5) {echo"active";}?> ">
             <a class="nav-link" href="#">Gestion des URL <span class="sr-only">(current)</span></a>
@@ -44,13 +44,11 @@
 <?php //se deconnecter
 if(isset($_POST['logout']))
 {
+    // destruction de la session
+    session_destroy();
     // libération des variables globales associées à la session
     unset($_SESSION['pseudo']);
     unset($_SESSION['statut']);
-
-    // destruction de la session
-    session_destroy();
-    
     header('location: ../login/session.php');
 }
 ?>

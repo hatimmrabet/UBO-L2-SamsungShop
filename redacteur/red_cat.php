@@ -2,7 +2,7 @@
 session_start();
 
 //verification du statut de l'utilisateur et du profil s'il est connecté ou pas
-if(!isset($_SESSION['pseudo']) || $_SESSION['statut']!='G') 
+if(!isset($_SESSION['pseudo']) || $_SESSION['statut']!='R') 
 {
 //Si la session n'est pas ouverte, redirection vers la page du formulaire
 header("Location:../login/session.php");
@@ -13,8 +13,8 @@ exit();
 require_once("../includes/BDD.php");
 
 
-//recuperation de tous les actualités
-$sql="SELECT * from t_news_new order by new_num desc";  
+//recuperation de tous les Categorie
+$sql="SELECT * from t_categorie_cat order by cat_id desc";  
 $query=$mysqli->query($sql);
 //echo $sql;
 
@@ -28,7 +28,7 @@ if ($query==false) {        // La requête a echoué
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Actualités</title>
+    <title>Catégories</title>
     <meta charset="UTF-8">
 	<meta data="viewport" content="width=device-width, initial-scale=1">
 		
@@ -43,48 +43,48 @@ if ($query==false) {        // La requête a echoué
 </head>
 
 <body style="padding:0px;">
-	<?php $page=2; ?>
-    <?php require_once("../includes/navbar-gestionnaire.php"); ?>
+<?php $page=3; ?>
+    <?php require_once("../includes/navbar-redacteur.php"); ?>
 
     <div class="table-responsive-lg ">
         <table class="table table-light table-hover table-responsive-md">
             <thead class="thead-light">
                 <tr>
                 <th scope="col">N°</th>
-                <th scope="col">Titre</th>
-                <th scope="col">Texte</th>
-                <th scope="col">Etat</th>
-                <th scope="col">Pseudo</th>
-                <th scope="col">Date</th>
+                <th scope="col">Intitulé</th>
+                <th style="text-align: center;" scope="col">Autorisation</th>
+                <th style="text-align: center;" scope="col">Date</th>
                 <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <?php while($data=$query->fetch_assoc()) {?>
                 <tr>
-                <th scope="row"><?php echo ($data['new_num']) ?></th>
-                <td><?php echo ($data['new_titre']) ?></td>
-                <td><?php echo ($data['new_texte']) ?></td>
-                <td><?php echo ($data['new_etat']) ?></td>
-                <td><?php echo ($data['cpt_pseudo']) ?></td>
-                <td><?php echo ($data['new_date']) ?></td>
-                <td><a href="gestionnaire_edit_act.php?edit=<?php echo $data['new_num']; ?>" class="btn btn-primary btn-sm" >Modifier</a></td>
+                <th scope="row"><?php echo ($data['cat_id']) ?></th>
+                <td><?php echo ($data['cat_intitule']) ?></td>
+                <td style="text-align: center;"><?php echo ($data['cat_autorisation']) ?></td>
+                <td style="text-align: center;"><?php echo ($data['cat_date']) ?></td>
+                <td style="text-align: center;"><a href="red_cat_edit.php?edit=<?php echo $data['cat_id']; ?>" class="btn btn-primary btn-sm" >Modifier</a></td>
                 </tr>
                 <?php }
                 ?>
             </tbody>
         </table>
     </div>
+
+
     <hr>
+
+
     <div class="row justify-content-center my-4 mx-auto" style="width:80%;padding: 2%;background-color: #e9ecef45;background-clip: border-box;border: 2px solid rgba(0,0,0,.125);border-radius: .55rem;">
-    <form  class="form-group mx-auto" style="width: 60%;margin:auto;" method="post" action="actualites_action.php">
+    <form  class="form-group mx-auto" style="width: 60%;margin:auto;" method="post" action="red_cat_action.php">
         <?php
             //affichage des msg d'erreur
             if(isset($_SESSION['msg'])){
             echo('<div style="margin-bottom: 1rem;">');
                 if($_SESSION['msg']==3){  //afficher msg success 1
                 echo('<div class="alert alert-success" role="alert">');
-                    echo('Actualité Ajouté <br>');
+                    echo('Catégorie Ajouté <br>');
                 echo('</div>');
                 }
                 if($_SESSION['msg']==4 ) { //afficher msg danger 2
@@ -96,20 +96,16 @@ if ($query==false) {        // La requête a echoué
             }
         ?>
         <fieldset>
-        <h5>Ajoutez une actualité : </h5>
+        <h5>Ajoutez une catégorie : </h5>
         <div class="mb-3">
-            <label >Entrer le Titre :</label>
-            <input type="texte" class="form-control" placeholder="Titre " name="titre" required autofocus>
+            <label >Entrer le nom du catégorie :</label>
+            <input type="texte" class="form-control" placeholder="Intitulé " name="intitulé" required autofocus>
         </div>
         <div class="mb-3">
-            <label >Entrer le Texte :</label>
-            <textarea class="form-control" aria-label="With textarea" name="texte" placeholder="Texte" required></textarea>
-        </div>
-        <div class="mb-3">
-            <label >Etat :</label><br>
-                <select class="custom-select col-1" id="inputGroupSelect01" name="etat" required>
-                    <option selected value="C">C</option>
-                    <option value="L">L</option>
+            <label >Selectionnez l'autorisation :</label><br>
+                <select class="custom-select col-1" id="inputGroupSelect01" name="aut" required>
+                    <option selected value="R">R</option>
+                    <option value="G">G</option>
                 </select>
         </div>
         <div class="mb-3">
@@ -123,19 +119,24 @@ if ($query==false) {        // La requête a echoué
         </fieldset>
     </form>
 
-    <form  class="form-group mx-auto" style="width: 20%;margin:auto;" method="post" action="actualites_action.php">
+    <form  class="form-group mx-auto" style="width: 25%;margin:auto;" method="post" action="red_cat_action.php">
         <?php
             //affichage des msg d'erreur
             if(isset($_SESSION['msg'])){
             echo('<div style="margin-bottom: 1rem;">');
                 if($_SESSION['msg']==1){  //afficher msg success 1
                 echo('<div class="alert alert-success" role="alert">');
-                    echo('Actualité supprimé <br>');
+                    echo('Catégorie supprimé <br>');
                 echo('</div>');
                 }
                 if($_SESSION['msg']==2 ) { //afficher msg success 2
                     echo('<div class="alert alert-danger" role="alert">');
-                        echo('N° d\'actualité incorrect');
+                        echo('N° de Catégorie incorrect');
+                    echo('</div>');
+                }
+                if($_SESSION['msg']==5 ) { //afficher msg success 2
+                    echo('<div class="alert alert-danger" role="alert">');
+                        echo('Vous n\'avez pas le droit de supprimer cette catégorie');
                     echo('</div>');
                 }
             echo('</div>');
@@ -143,7 +144,7 @@ if ($query==false) {        // La requête a echoué
             }
         ?>
         <fieldset>
-        <h5>Supprimer une actualité : </h5>
+        <h5>Supprimer une Catégorie : </h5>
             <label >Entrer le N° :</label>
             <input type="texte" class="form-control" placeholder="N° " name="id" required autofocus>
             <input class="btn btn-lg btn-primary btn-block mt-3" type="submit" name="supprimer" value="Supprimer">

@@ -9,22 +9,8 @@ header("Location:../login/session.php");
 exit();
 }
 
-//connection a la base de donnee
-$mysqli = new mysqli('localhost','zm_rabeha','Hatimtim123','zfl2-zm_rabeha'); //ouverture de connection
-if ($mysqli->connect_errno)
-{
-	// Affichage d'un message d'erreur
-	echo "Error: Problème de connexion à la BDD \n";
-	echo "Errno: " . $mysqli->connect_errno . "\n";
-	echo "Error: " . $mysqli->connect_error . "\n";
-	// Arrêt du chargement de la page
-	exit();
-}
-// Instructions PHP à ajouter pour l'encodage utf8 du jeu de caractères
-if (!$mysqli->set_charset("utf8")) {
-	//printf("Pb de chargement du jeu de car. utf8 : %s\n", $mysqli->error);
-	exit();
-}
+require_once("../includes/BDD.php");
+
 ?>
 
 <?php
@@ -44,42 +30,85 @@ if($res==false)
 }
 else
 {
-    if($res->num_rows==1)
+    if($res->num_rows==1)// s'il existe un compte
     {
-        if($compte['pfl_validite']=='D')
+        if(strcmp($_SESSION['pseudo'],$pseudo)==0) //si c'est votre compte
         {
-            $sql1="UPDATE t_profil_pfl set pfl_validite = 'A' where cpt_pseudo = '".$pseudo."' ";
-            $res1=$mysqli->query($sql1);
-            if($res1==false)
+            $_SESSION['msg']=0;
+            echo "Vous ne pouvez pas changez la validité de votre Compte";
+        }
+        else    //si c'est pas votre compte
+        {
+            if($compte['pfl_validite']=='D')
             {
-                echo "ERREUR : $sql1";
+                $sql1="UPDATE t_profil_pfl set pfl_validite = 'A' where cpt_pseudo = '".$pseudo."' ";
+                $res1=$mysqli->query($sql1);
+                if($res1==false)
+                {
+                    echo "ERREUR : $sql1";
+                }
+                else
+                {
+                    $_SESSION['msg']=1;
+                    echo "Compte activé";
+                }
             }
             else
             {
-                $_SESSION['msg']=1;
-                echo "Compte activé";
+                $sql1="UPDATE t_profil_pfl set pfl_validite = 'D' where cpt_pseudo = '".$pseudo."' ";
+                $res1=$mysqli->query($sql1);
+                if($res1==false)
+                {
+                    echo "ERREUR : $sql1";
+                }
+                else
+                {
+                    $_SESSION['msg']=2;
+                    echo "Compte désactivé";
+                }
             }
         }
-        else
-        {
-            $sql1="UPDATE t_profil_pfl set pfl_validite = 'D' where cpt_pseudo = '".$pseudo."' ";
-            $res1=$mysqli->query($sql1);
-            if($res1==false)
-            {
-                echo "ERREUR : $sql1";
-            }
-            else
-            {
-                $_SESSION['msg']=2;
-                echo "Compte désactivé";
-            }
-        }
-    }else{
+    }
+    else    //si le compte est introuvable
+    {
         $_SESSION['msg']=3;
         echo "Pseudo introuvable";
     }
-    header("Location: gestionnaire_comptes.php");
 }
 }
+
+if(isset($_POST['supprimer'])){
+    $pseudo=htmlspecialchars(addslashes(trim($_POST['pseudo'])));
+
+    $sql="SELECT cpt_pseudo from t_profil_pfl join t_compte_cpt using(cpt_pseudo) where cpt_pseudo='".$pseudo."'";
+    $res=$mysqli->query($sql);
+    //echo $sql;
+
+    if($nb=$res->num_rows==1){ //existe un compte + profil
+
+        $delProfil="DELETE FROM t_profil_pfl where cpt_pseudo ='$pseudo';";
+        $resProdil=$mysqli->query($delProfil);
+        echo $delProfil;
+        if($resProdil==false)
+        {
+            echo "ERREUR : $delProfil ";
+        }
+        else
+        {
+            $delCpt="DELETE FROM t_compte_cpt where cpt_pseudo ='$pseudo';";
+            $resCpt=$mysqli->query($delCpt);
+            echo $delCpt;
+
+            $_SESSION['msgDel']=0;
+            
+        }
+    }else{
+        $_SESSION['msgDel']=1;
+        echo "erreur : ";
+    }
+}
+
+header("Location: gestionnaire_comptes.php");
+
 $mysqli->close();
 ?>

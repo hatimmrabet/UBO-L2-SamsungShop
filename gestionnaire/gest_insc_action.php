@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Sign Up</title>
+<title></title>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -18,11 +18,12 @@
 </head>
 
 <body class="bg-light" style="padding-top:0px;">
-    
-    <?php 
-    $accueil=2;  require_once("../includes/navbar-cat.php");
-    require_once("../includes/BDD.php");
 
+    <?php $page=1; ?>
+
+    <?php require_once("../includes/navbar-gestionnaire.php");
+
+    require_once("../includes/BDD.php");
 
     //Inscription
         $pseudo=htmlspecialchars(addslashes(($_POST['pseudo'])));
@@ -98,7 +99,7 @@
                             //echo "ajout de profile avec succes <br>";
                             $problem1=0;
                             $_SESSION['connect']=1;                            
-                            header("Location: session.php");
+                            header("Location: gestionnaire_comptes.php");
                         }
                     }// end cond d'insertion compte et profile
                 }
@@ -157,9 +158,9 @@
 
             //reaffichage du formulaire
             echo('<div class="container">');
-                echo('<div class="py-3 text-center"><h2>Inscription </h2></div>');
+                echo('<div class="py-3 text-center"><h2>Ajouter un compte</h2></div>');
                 echo('<div class="col-md-8 order-md-1" style=" margin: auto;">');
-                    echo('<form class="needs-validation" action="action.php" method="post">');
+                    echo('<form class="needs-validation" action="gest_insc_action.php" method="post">');
                     echo('<div class="row">');
                     echo('<div class="col-md-6 mb-3">');
                         echo('<label for="firstName">Nom</label>');
@@ -202,10 +203,7 @@
                     echo('</div>');
                     
                     echo('<hr class="mb-4">');
-                    echo('<button class="btn btn-primary btn-lg btn-block" type="submit">Inscription</button>');
-                    echo('<p class="mt-3 mb-3 text-muted" style="text-align: center;">');
-                        echo('J\'ai déja un compte, je veux <strong><a href="session.php">me connecter</strong></a>');
-                    echo('</p>');
+                    echo('<button class="btn btn-primary btn-lg btn-block" type="submit">Enregistrer</button>');
                     echo('</form>');
                 echo('</div>');
             echo('</div>');

@@ -31,7 +31,7 @@
         <!-- Content for mobile devices-->
         <div class="navbar-mobile">
             <ul class="side-nav" id="mobile-menu">
-                <li class="nav-item">
+            <li class="nav-item">
                     <a class="nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">

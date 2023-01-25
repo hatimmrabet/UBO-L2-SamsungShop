@@ -16,10 +16,11 @@
 .edit{
     position: fixed;
     right: 0;
+    bottom: 0;
     width: 23%;
     padding: 1%;
     margin: 1%;
-    background-color: #e9ecef45;
+    background-color: #eef1f3;
     background-clip: border-box;
     border: 2px solid rgba(0,0,0,.125);
     border-radius: .55rem;

@@ -17,45 +17,28 @@
 
 <body class="text-center" style="padding-top:0px;">
 
-<?php $accueil=1; ?>
-
-<?php require_once("../includes/navbar-cat.php"); ?>
+<?php $accueil=1; require_once("../includes/navbar-cat.php"); ?>
 
 <?php
 //Ouverture d'une session
 session_start();
 
 //CONNECTION
-//$msg=-2;	
+require_once("../includes/BDD.php");
+
+
 if( $_POST['pseudo'] AND $_POST['mdp'] )    //les 2 champs sont remplies
 { 
     $pseudo=htmlspecialchars(addslashes(($_POST['pseudo'])));
     $mdp=htmlspecialchars(addslashes(($_POST['mdp'])));
     
     //echo $pseudo; echo "<br>"; echo md5($mdp);
-
-    //connection a la base de donnee
-    $mysqli = new mysqli('localhost','zm_rabeha','Hatimtim123','zfl2-zm_rabeha'); //ouverture de connection
-    if ($mysqli->connect_errno)
-    {
-        // Affichage d'un message d'erreur
-        echo "Error: Problème de connexion à la BDD \n";
-        echo "Errno: " . $mysqli->connect_errno . "\n";
-        echo "Error: " . $mysqli->connect_error . "\n";
-        // Arrêt du chargement de la page
-        exit();
-    }
-    // Instructions PHP à ajouter pour l'encodage utf8 du jeu de caractères
-    if (!$mysqli->set_charset("utf8")) {
-        //printf("Pb de chargement du jeu de car. utf8 : %s\n", $mysqli->error);
-        exit();
-    }
     
     $sql="SELECT cpt_pseudo, pfl_statut, pfl_validite from t_profil_pfl join t_compte_cpt using (cpt_pseudo) where cpt_pseudo='".$pseudo."' AND cpt_psswd= md5('".$mdp."') ";
     $res=$mysqli->query($sql);
     //echo $sql;  echo "<br>";
     if ($res==false) {        // La requête a echoué
-        echo "Error: Problème d'accès à la base \n";
+        echo "Error: La requête a echoué \n";
         echo $sql;
         exit();
     }
@@ -139,7 +122,7 @@ if($problem==1)
     
     //reaffichage du formualire
     echo('<form class="form-signin" method="post" action="session_action.php">');
-    echo('<img class="mb-4" src="../img/Samsung-logo" alt="" height="165">');
+    echo('<img class="mb-4" src="../img/Samsung-logo.png" alt="" height="165">');
     echo('<h1 class="h3 mb-3 font-weight-normal">Sign in</h1>');
         echo('<label for="inputEmail" class="sr-only">Pseudo </label>');
                 echo("<input type=\"texte\" id=\"inputEmail\" class=\"form-control\" placeholder=\"Pseudo \" value =\"$pseudo\" name=\"pseudo\" required autofocus>");

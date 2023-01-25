@@ -9,17 +9,19 @@ header("Location:../login/session.php");
 exit();
 }
 
-require_once("../includes/BDD.php"); ?>
+//connection a la base de donnee
+require_once("../includes/BDD.php");
 
+?>
 
 <?php   
-if(isset($_POST['supprimer']))      //supression des actualités
+if(isset($_POST['supprimer']))      //supression des catégorie
 {
     //eviter les probleme de ' et "
     $id=htmlspecialchars(addslashes(trim($_POST['id'])));
 
     //chercher l'actualité avec cet id
-    $sql="SELECT new_num from t_news_new where new_num ='".$id."'";
+    $sql="SELECT cat_id from t_categorie_cat where cat_id ='".$id."'";
     $res=$mysqli->query($sql);
     //echo $sql;
     if($res==false)
@@ -30,7 +32,7 @@ if(isset($_POST['supprimer']))      //supression des actualités
     {
         if($res->num_rows==1)
         {
-            $sql1="DELETE from t_news_new where new_num='".$id."' ";
+            $sql1="DELETE from t_categorie_cat where cat_id='".$id."' ";
             $res1=$mysqli->query($sql1);
             if($res1==false)
             {
@@ -39,30 +41,29 @@ if(isset($_POST['supprimer']))      //supression des actualités
             else
             {
                 $_SESSION['msg']=1;
-                echo "Actualité supprimé";
+                echo "Catégorie supprimé";
             }
 
         }else{
             $_SESSION['msg']=2;
-            echo "N° d'actualité incorrect";
+            echo "N° de Catégorie incorrect";
         }
     }
 
-    header("Location: gestionnaire_actualites.php");
+    header("Location: gest_cat.php");
 
 }
 
 
-if(isset($_POST['ajouter']))        //ajout des actualités
+if(isset($_POST['ajouter']))        //ajout des catégorie
 {
     //eviter les probleme de ' et "
-    $titre=htmlspecialchars(addslashes(trim($_POST['titre'])));
-    $texte=htmlspecialchars(addslashes(trim($_POST['texte'])));
+    $intitulé=htmlspecialchars(addslashes(trim($_POST['intitulé'])));
 
-    //chercher l'actualité avec cet id
-    $sql="INSERT INTO t_news_new values(null,'".$titre."','".$texte."','".$_POST['thedate']."','".$_POST['etat']."','".$_SESSION['pseudo']."');";
+    //chercher la catégorie avec cet id
+    $sql="INSERT INTO t_categorie_cat values (null,'".$intitulé."','".$_POST['thedate']."','".$_POST['aut']."');";
     $res=$mysqli->query($sql);
-    //echo $sql;
+    echo $sql;
     if($res==false)
     {
         echo "ERREUR : $sql";
@@ -71,20 +72,19 @@ if(isset($_POST['ajouter']))        //ajout des actualités
     else
     {
         $_SESSION['msg']=3;
-        echo "Actualité Ajouté";
+        echo "Catégorie Ajouté";
     }
 
-    header("Location: gestionnaire_actualites.php");
+    header("Location: gest_cat.php");
 
 }
 
 if(isset($_POST['modifier'])){
-    $titre=htmlspecialchars(addslashes($_POST['titre']));
-    $texte=htmlspecialchars(addslashes($_POST['texte']));
+    $intitulé=htmlspecialchars(addslashes(trim($_POST['intitulé'])));
 
-    $sql1=  "UPDATE t_news_new 
-            SET new_titre='$titre' , new_texte='$texte',  new_etat='".$_POST['etat']."' , new_date='".$_POST['thedate']."'
-            where new_num=".$_GET['edit'].";";
+    $sql1=  "UPDATE t_categorie_cat 
+            SET cat_intitule='$intitulé' , cat_autorisation='".$_POST['aut']."' , cat_date='".$_POST['thedate']."'
+            where cat_id=".$_GET['edit'].";";
     echo $sql1;
 
     $res=$mysqli->query($sql1);
@@ -96,7 +96,7 @@ if(isset($_POST['modifier'])){
     }
 
     $_SESSION['msg']=1;
-    header("Location: gestionnaire_edit_act.php?edit=".$_GET['edit']."");
+    header("Location: gest_cat_edit.php?edit=".$_GET['edit']."");
 }
 
 

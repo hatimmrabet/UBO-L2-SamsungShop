@@ -10,25 +10,10 @@ exit();
 }
 
 //connection a la base de donnee
-$mysqli = new mysqli('localhost','zm_rabeha','Hatimtim123','zfl2-zm_rabeha'); //ouverture de connection
-if ($mysqli->connect_errno)
-{
-	// Affichage d'un message d'erreur
-	echo "Error: Problème de connexion à la BDD \n";
-	echo "Errno: " . $mysqli->connect_errno . "\n";
-	echo "Error: " . $mysqli->connect_error . "\n";
-	// Arrêt du chargement de la page
-	exit();
-}
-// Instructions PHP à ajouter pour l'encodage utf8 du jeu de caractères
-if (!$mysqli->set_charset("utf8")) {
-	//printf("Pb de chargement du jeu de car. utf8 : %s\n", $mysqli->error);
-	exit();
-}
+require_once("../includes/BDD.php");
 
-$pseudo=$_SESSION['pseudo'];	//requperation de pseudo
 
-$sql="SELECT * from t_profil_pfl join t_compte_cpt using(cpt_pseudo) where cpt_pseudo='".$pseudo."'";
+$sql="SELECT * from t_profil_pfl join t_compte_cpt using(cpt_pseudo) where cpt_pseudo='".$_SESSION['pseudo']."';";
 $query=$mysqli->query($sql);
 $data=$query->fetch_assoc();
 //echo $sql;
@@ -67,7 +52,7 @@ if ($query==false) {        // La requête a echoué
 		<!-- division informations personnelles -->
 		<div class="jumbotron col border border-dark" style="padding:2rem 3rem;background-color:#f8f8f8;">
 			<h3 style="margin-bottom: 6%;">Informations Peronnelles :</h3>
-			<form>
+			<form method="POST" action="red_edit_infpers.php">
 			<fieldset disabled>
 				<div class="form-group row">
 					<label class="col-sm-4 col-form-label font-weight-bold">Nom :</label>
@@ -108,6 +93,9 @@ if ($query==false) {        // La requête a echoué
 					</div>
 				</div>
 			</fieldset>
+			<hr>
+			<input class="btn btn-primary btn-block mx-auto col" style="width: 20%;" type="submit" name="modifier" value="Modifier">
+
 			</form>
 		</div>
 	</main>

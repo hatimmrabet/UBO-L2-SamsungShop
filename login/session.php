@@ -16,21 +16,8 @@ exit();
 }
 
 //connection a la base de donnee
-$mysqli = new mysqli('localhost','zm_rabeha','Hatimtim123','zfl2-zm_rabeha'); //ouverture de connection
-if ($mysqli->connect_errno)
-{
-	// Affichage d'un message d'erreur
-	echo "Error: Problème de connexion à la BDD \n";
-	echo "Errno: " . $mysqli->connect_errno . "\n";
-	echo "Error: " . $mysqli->connect_error . "\n";
-	// Arrêt du chargement de la page
-	exit();
-}
-// Instructions PHP à ajouter pour l'encodage utf8 du jeu de caractères
-if (!$mysqli->set_charset("utf8")) {
-	//printf("Pb de chargement du jeu de car. utf8 : %s\n", $mysqli->error);
-	exit();
-}
+require_once("../includes/BDD.php");
+
 ?>
 
 <!DOCTYPE html>
@@ -56,8 +43,22 @@ if (!$mysqli->set_charset("utf8")) {
 
 <?php require_once("../includes/navbar-cat.php"); ?>
 
+	<?php
+	if(isset($_SESSION['connect'])){
+		if($_SESSION['connect']==1){	?>
+		<div style="margin-top:2rem;">
+			<div class="alert alert-success" role="alert">
+				Ajout de compte et de profile avec succes
+				<hr>
+				Vous Pouvez vous connectez une fois votre compte est activé
+			</div>
+		</div>
+	<?php 
+		} unset($_SESSION['connect']); 
+	}
+	?>
 	<form class="form-signin" method="post" action="session_action.php">
-		<img class="mb-4" src="../img/Samsung-logo" alt="" height="165">
+		<img class="mb-4" src="../img/Samsung-logo.png" alt="" height="165">
 		<h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
 		<label for="inputEmail" class="sr-only">Pseudo </label>
 			<input type="texte" id="inputEmail" class="form-control" placeholder="Pseudo " name="pseudo" required autofocus>

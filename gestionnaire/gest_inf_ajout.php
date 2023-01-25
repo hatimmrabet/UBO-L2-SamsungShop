@@ -2,7 +2,7 @@
 session_start();
 
 //verification du statut de l'utilisateur et du profil s'il est connecté ou pas
-if(!isset($_SESSION['pseudo']) || $_SESSION['statut']!='R') 
+if(!isset($_SESSION['pseudo']) || $_SESSION['statut']!='G') 
 {
 //Si la session n'est pas ouverte, redirection vers la page du formulaire
 header("Location:../login/session.php");
@@ -14,7 +14,7 @@ require_once("../includes/BDD.php");
 
 
 //requete pour les categories
-$sql="SELECT cat_id, cat_intitule from t_categorie_cat where cat_autorisation='".$_SESSION['statut']."' ";
+$sql="SELECT cat_id, cat_intitule from t_categorie_cat ";
 $query=$mysqli->query($sql);
 //echo $sql;
 
@@ -33,7 +33,6 @@ if ($query==false) {        // La requête a echoué
 	<meta data="viewport" content="width=device-width, initial-scale=1">
 		
 	<link rel="icon" type="image/png" href="../img/favicon.ico"/>
-
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -42,8 +41,8 @@ if ($query==false) {        // La requête a echoué
 </head>
 <body style="padding:0px;">
 
-	<?php $page=1; ?>
-    <?php require_once("../includes/navbar-redacteur.php"); ?>
+	<?php $page=3; ?>
+    <?php require_once("../includes/navbar-gestionnaire.php"); ?>
 
     <main class="container" style="margin-top: 2%;">
     <!-- division insertion d'informations -->
@@ -70,7 +69,6 @@ if ($query==false) {        // La requête a echoué
                 echo('</div>');
         }
         echo('</div>');
-        header("refresh:3;url=redacteur_informations.php");
         unset($_SESSION['msg']);
     } 
     ?>

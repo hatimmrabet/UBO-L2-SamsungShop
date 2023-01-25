@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 15 déc. 2019 à 22:31
+-- Généré le :  mar. 24 déc. 2019 à 14:05
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -47,8 +47,7 @@ INSERT INTO `t_categorie_cat` (`cat_id`, `cat_intitule`, `cat_date`, `cat_autori
 (3, 'TABLETTES :', '2019-10-26', 'R'),
 (4, 'ÉLECTROMÉNAGER :', '2019-10-26', 'R'),
 (5, 'TÉLÉVISEURS :', '2019-10-26', 'R'),
-(6, 'SMARTPHONES :', '2019-10-26', 'R'),
-(17, 'Catégorie de Test Vide Redacteur', '2019-12-15', 'R');
+(6, 'SMARTPHONES :', '2019-10-26', 'R');
 
 -- --------------------------------------------------------
 
@@ -70,22 +69,18 @@ CREATE TABLE IF NOT EXISTS `t_compte_cpt` (
 INSERT INTO `t_compte_cpt` (`cpt_pseudo`, `cpt_psswd`) VALUES
 ('anass_aitabdelkrim', '827ccb0eea8a706c4c34a16891f84e7b'),
 ('ayoub', '827ccb0eea8a706c4c34a16891f84e7b'),
-('fabrigas_cesc', 'bf36f6b59e1e3889c91daea616877924'),
 ('gestionnaire1', '21fdb730e736b3577ce0961a604e2b6b'),
 ('haitam_mrabet', '38bcec648a83b7c63eb515771a41ec2c'),
-('hatim', '827ccb0eea8a706c4c34a16891f84e7b'),
+('hatim', '46ed7442ba41c32fe55ce3d8b4d6ed9b'),
 ('iheb_chemkhi', '1332427397e32f2888799456eb1cee34'),
 ('khalid_ahannach', '827ccb0eea8a706c4c34a16891f84e7b'),
-('leo_messi', '2dafaffcd2f1f8e813834473e380080e'),
 ('loic.catrou', '55587a910882016321201e6ebbc9f595'),
 ('ouma_ork', '8e7aef75dad24742365609c64928574c'),
 ('root', '63a9f0ea7bb98050796b649e85481845'),
 ('thomas_larue', '8766814f87d4790bd6c5f52d12b98da6'),
 ('yassin_lahmidi', '827ccb0eea8a706c4c34a16891f84e7b'),
 ('youssef', '827ccb0eea8a706c4c34a16891f84e7b'),
-('zakaria_chelaoui', '827ccb0eea8a706c4c34a16891f84e7b'),
-('zakaria_hedraf', '827ccb0eea8a706c4c34a16891f84e7b'),
-('zm_rabeha', '827ccb0eea8a706c4c34a16891f84e7b');
+('zakaria_chelaoui', '827ccb0eea8a706c4c34a16891f84e7b');
 
 -- --------------------------------------------------------
 
@@ -104,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `t_information_inf` (
   PRIMARY KEY (`inf_id`),
   KEY `cpt_pseudo` (`cpt_pseudo`),
   KEY `cat_id` (`cat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `t_information_inf`
@@ -181,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `t_news_new` (
   `cpt_pseudo` varchar(60) DEFAULT NULL,
   PRIMARY KEY (`new_num`),
   KEY `cpt_pseudo` (`cpt_pseudo`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `t_news_new`
@@ -189,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `t_news_new` (
 
 INSERT INTO `t_news_new` (`new_num`, `new_titre`, `new_texte`, `new_date`, `new_etat`, `cpt_pseudo`) VALUES
 (1, 'Fermeture exceptionnelle :', 'Notre Boutique va fermer aujourd\'hui à midi ', '2019-10-30', 'C', 'root'),
-(2, 'Ouverture exceptionnelle :', 'Notre Boutique va ouvrir ses portes le dimanche à partir de 12h ', '2019-11-30', 'L', 'root'),
+(2, 'Ouverture exceptionnelle :', 'Notre Boutique va ouvrir ses portes le dimanche à partir de 12h ', '2019-11-30', 'C', 'root'),
 (3, 'Recherche agents :', 'Notre Boutique recherche des agents de remplacement, Deposez vos CV à l\'accueil ', '2019-12-14', 'L', 'root'),
 (10, 'Carte Fidélité :', 'Vous Pouvez obtenir votre carte de fidélité dés maintenant. RDV à l\'accueil.', '2019-12-05', 'L', 'hatim');
 
@@ -218,22 +213,18 @@ CREATE TABLE IF NOT EXISTS `t_profil_pfl` (
 INSERT INTO `t_profil_pfl` (`pfl_nom`, `pfl_prenom`, `pfl_mail`, `pfl_statut`, `pfl_validite`, `cpt_pseudo`, `pfl_date`) VALUES
 ('AIT ABDELKRIM', 'Anass', 'anas@univ-brest.fr', 'R', 'D', 'anass_aitabdelkrim', '2019-12-07'),
 ('ayoub', 'lakhal', 'ayoub.tet@mat.ma', 'R', 'D', 'ayoub', '2019-12-07'),
-('FABRIGAS', 'Cesc', 'cesc@asmonaco.fr', 'R', 'D', 'fabrigas_cesc', '2019-10-25'),
 ('MARC', 'Valérie', 'vmarc@gmail.com', 'G', 'A', 'gestionnaire1', '2019-10-25'),
 ('M\'RABET', 'Haitam', 'haitam_mrabet@gmail.com', 'R', 'D', 'haitam_mrabet', '2019-10-25'),
 ('M\'RABET EL KHOMSSI', 'Hatim', 'mrabet.hatim2018@gmail.com', 'G', 'A', 'hatim', '2019-10-25'),
 ('CHEMKHI', 'Iheb', 'iheb_chemkhi@gmail.com', 'R', 'A', 'iheb_chemkhi', '2019-10-25'),
 ('AHANNACH', 'Khalid', 'khalid02@gmail.com', 'R', 'D', 'khalid_ahannach', '2019-10-25'),
-('LIONNEL', 'Messi', 'messi@fcb.es', 'R', 'D', 'leo_messi', '2019-10-25'),
 ('Catrou', 'Loic', 'loic@gmail.com', 'R', 'D', 'loic.catrou', '2019-11-20'),
 ('OURKIA', 'Oumaima', 'ouma_ork@gmail.com', 'R', 'D', 'ouma_ork', '2019-10-25'),
 ('root', 'admin', 'admin@root.com', 'G', 'A', 'root', '2019-10-25'),
 ('LARUE', 'Thomas', 'thomas_larue@gmail.com', 'R', 'D', 'thomas_larue', '2019-10-25'),
 ('Lahmidi', 'Yassine', 'yassin_lahmidi@gmail.com', 'R', 'D', 'yassin_lahmidi', '2019-12-07'),
 ('m\'rabet', 'youssef', 'yousef@gmail.com', 'R', 'A', 'youssef', '2019-11-22'),
-('CHELLAOUI', 'Zakaria', 'zakaria@enib-brest.fr', 'R', 'D', 'zakaria_chelaoui', '2019-12-07'),
-('HEDRAF', 'Zakaria', 'zakaria@raja.ma', 'R', 'D', 'zakaria_hedraf', '2019-12-07'),
-('Khomssi', 'M\'rabet', 'hatimmrabet2@gmail.com', 'R', 'D', 'zm_rabeha', '2019-11-23');
+('CHELLAOUI', 'Zakaria', 'zakaria@enib-brest.fr', 'R', 'D', 'zakaria_chelaoui', '2019-12-07');
 
 -- --------------------------------------------------------
 
@@ -289,7 +280,7 @@ INSERT INTO `t_visuel_vis` (`vis_id`, `vis_descriptif`, `vis_nom_fichier`, `vis_
 (5, 'SAMSUNG NOTE 9', 'Galaxy-Note9.jpg', '2019-11-29', 'L', 'hatim'),
 (6, 'SAMSUNG Galaxy S10+', 's10+.jpg', '2019-11-29', 'L', 'hatim'),
 (7, 'SAMSUNG A9+', 'a9.jpeg', '2019-11-29', 'C', 'hatim'),
-(11, 'Samsung Fold', 'fold.jpg', '2019-12-15', 'L', 'youssef');
+(11, 'SAMSUNG Fold', 'fold.jpg', '2019-12-15', 'L', 'youssef');
 
 --
 -- Contraintes pour les tables déchargées

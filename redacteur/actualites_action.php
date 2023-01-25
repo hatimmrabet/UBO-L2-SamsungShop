@@ -2,17 +2,17 @@
 session_start();
 
 //verification du statut de l'utilisateur et du profil s'il est connecté ou pas
-if(!isset($_SESSION['pseudo']) || $_SESSION['statut']!='G') 
+if(!isset($_SESSION['pseudo']) || $_SESSION['statut']!='R') 
 {
 //Si la session n'est pas ouverte, redirection vers la page du formulaire
 header("Location:../login/session.php");
 exit();
 }
 
-require_once("../includes/BDD.php"); ?>
+//connection a la base de donnee
+require_once("../includes/BDD.php");
 
 
-<?php   
 if(isset($_POST['supprimer']))      //supression des actualités
 {
     //eviter les probleme de ' et "
@@ -48,7 +48,7 @@ if(isset($_POST['supprimer']))      //supression des actualités
         }
     }
 
-    header("Location: gestionnaire_actualites.php");
+    header("Location: redacteur_actualites.php");
 
 }
 
@@ -74,7 +74,7 @@ if(isset($_POST['ajouter']))        //ajout des actualités
         echo "Actualité Ajouté";
     }
 
-    header("Location: gestionnaire_actualites.php");
+    header("Location: redacteur_actualites.php");
 
 }
 
@@ -96,7 +96,7 @@ if(isset($_POST['modifier'])){
     }
 
     $_SESSION['msg']=1;
-    header("Location: gestionnaire_edit_act.php?edit=".$_GET['edit']."");
+    header("Location: redacteur_edit_act.php?edit=".$_GET['edit']."");
 }
 
 
